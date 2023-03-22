@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Booking {
-    private Long rideId;
+    private Long bookingId;
     private Long customerId;
     private Long driverId;
     private Coordinates pickup;
