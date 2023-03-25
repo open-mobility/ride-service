@@ -1,12 +1,14 @@
 package com.o4.mobility.controllers;
 
 
+import com.o4.mobility.common.dtos.BooleanResponse;
+import com.o4.mobility.dao.entities.BookingEntity;
 import com.o4.mobility.dtos.Booking;
 import com.o4.mobility.services.BookingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Collections;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/bookings")
@@ -22,4 +24,25 @@ public class BookingController {
     public Booking get(@PathVariable("id") Long id) {
         return service.findById(id);
     }
+
+    @GetMapping
+    public List<BookingEntity> list() {
+        return Collections.emptyList();
+    }
+    @PostMapping("/")
+    public Booking save(@RequestBody Booking booking) {
+        return service.save(booking);
+    }
+
+    @PutMapping("/")
+    public Booking update(@RequestBody Booking booking) {
+        return service.update(booking);
+    }
+
+    @DeleteMapping("/{id}")
+    public BooleanResponse delete(@PathVariable("id") Long id) {
+        return service.deleteById(id);
+    }
+
+
 }

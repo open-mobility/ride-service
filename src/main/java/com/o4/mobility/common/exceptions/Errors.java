@@ -6,6 +6,14 @@ public interface Errors {
     int RECORD_NOT_FOUND = 40003;
     int CUSTOMER_NOT_FOUND = 40004;
     int DRIVER_NOT_FOUND = 40005;
+    int BAD_CUSTOMER_ID = 40006;
+    int BAD_DRIVER_ID = 40007;
+    int BAD_BOOKING_ID = 40008;
+    int BAD_RIDE_ID = 40009;
+    int BAD_USER_ID = 40010;
+    int BAD_PICKUP_LOCATION = 40011;
+    int BAD_DROP_OFF_LOCATION = 40012;
+
     int UNABLE_TO_MAP_OBJECT = 40020;
 
     int ENDPOINT_NOT_FOUND = 40040;

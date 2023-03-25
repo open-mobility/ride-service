@@ -13,10 +13,13 @@ public class BookingMapper {
     public static Booking map(BookingEntity src) {
         Booking dest = new Booking();
         dest.setCustomerId(src.getCustomerId());
+        dest.setStatus(src.getStatus());
         dest.setPickup(new Coordinates(src.getPickupLat(), src.getPickupLong()));
-        dest.setDropOff(new Coordinates(src.getDropoffLat(), src.getDropoffLong()));
+        dest.setDropOff(new Coordinates(src.getDropOffLat(), src.getDropOffLong()));
         dest.setDriverId(src.getDriverId());
         dest.setBookingId(src.getBookingId());
+        dest.setDtCreated(src.getDtCreated());
+        dest.setDtUpdated(src.getDtUpdated());
 
         return dest;
     }
@@ -26,22 +29,21 @@ public class BookingMapper {
         dest.setCustomerId(src.getCustomerId());
         dest.setDriverId(src.getDriverId());
         dest.setBookingId(src.getBookingId());
-
+        dest.setStatus(src.getStatus());
         if (null != src.getPickup()) {
             dest.setPickupLat(src.getPickup().getLatitude());
             dest.setPickupLong(src.getPickup().getLongitude());
         }
 
         if (null != src.getDropOff()) {
-            dest.setDropoffLat(src.getDropOff().getLatitude());
-            dest.setDropoffLong(src.getDropOff().getLongitude());
+            dest.setDropOffLat(src.getDropOff().getLatitude());
+            dest.setDropOffLong(src.getDropOff().getLongitude());
         }
         return dest;
     }
 
-    public static void mapTo(BookingEntity dest, Booking src) {
+    public static void overwrite(BookingEntity dest, Booking src) {
         dest.setDriverId(src.getDriverId());
-        //dest.setBookingId(src.getBookingId());
 
         if (null != src.getPickup()) {
             dest.setPickupLat(src.getPickup().getLatitude());
@@ -49,8 +51,9 @@ public class BookingMapper {
         }
 
         if (null != src.getDropOff()) {
-            dest.setDropoffLat(src.getDropOff().getLatitude());
-            dest.setDropoffLong(src.getDropOff().getLongitude());
+            dest.setDropOffLat(src.getDropOff().getLatitude());
+            dest.setDropOffLong(src.getDropOff().getLongitude());
         }
+        dest.setStatus(src.getStatus());
     }
 }
