@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import static com.o4.mobility.common.exceptions.Errors.*;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,13 +29,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     protected ResponseEntity<ExceptionResponse> handleAllExceptions(Exception exception) {
-        if (exception instanceof ApplicationException) {
-            return handleApplicationException((ApplicationException) exception);
-        } else if (exception instanceof HttpMessageNotReadableException) {
-            return handleFormattingException((HttpMessageNotReadableException) exception);
+        if (exception instanceof ApplicationException appException) {
+            return handleApplicationException(appException);
+        } else if (exception instanceof HttpMessageNotReadableException notReadableException) {
+            return handleFormattingException(notReadableException);
         }
         logger.error("Global exception handler", exception);
-        return new ResponseEntity<>(ExceptionResponse.of(ApplicationException.UNKNOWN_ERROR_OCCURRED, "Unknown error occured please contact site admin"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ExceptionResponse.of(UNKNOWN_ERROR_OCCURRED, "Unknown error occurred please contact site admin"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ExceptionResponse> handleFormattingException(HttpMessageNotReadableException exception) {
@@ -45,7 +47,7 @@ public class GlobalExceptionHandler {
             message = "Parser error, please make sure JSON is properly formatted";
         }
 
-        return new ResponseEntity<>(ExceptionResponse.of(ApplicationException.UNABLE_TO_MAP_OBJECT,
+        return new ResponseEntity<>(ExceptionResponse.of(UNABLE_TO_MAP_OBJECT,
                 message),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -62,10 +64,10 @@ public class GlobalExceptionHandler {
     private ExceptionResponse getServletExceptionResponse(ServletException exception, HttpServletRequest request) {
         ExceptionResponse response;
         if (exception instanceof NoHandlerFoundException) {
-            response = ExceptionResponse.of(ApplicationException.ENDPOINT_NOT_FOUND,
+            response = ExceptionResponse.of(ENDPOINT_NOT_FOUND,
                     "END POINT not found " + request.getRequestURI());
         } else {
-            response = ExceptionResponse.of(ApplicationException.HTTP_METHOD_NOT_SUPPORTED,
+            response = ExceptionResponse.of(HTTP_METHOD_NOT_SUPPORTED,
                     "HTTP Method Not supported: " + request.getMethod());
         }
 

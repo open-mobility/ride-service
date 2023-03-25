@@ -13,6 +13,7 @@ import com.o4.mobility.services.mappers.BookingMapper;
 import com.o4.mobility.services.validators.BookingValidator;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -69,7 +70,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> list() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

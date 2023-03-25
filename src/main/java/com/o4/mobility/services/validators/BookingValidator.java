@@ -5,9 +5,11 @@ import com.o4.mobility.common.exceptions.Errors;
 import com.o4.mobility.common.utils.ValueUtils;
 import com.o4.mobility.dtos.Booking;
 import com.o4.mobility.dtos.Coordinates;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BookingValidator {
-
 
     public static void validate(Booking booking) {
         if (ValueUtils.empty(booking)) {
