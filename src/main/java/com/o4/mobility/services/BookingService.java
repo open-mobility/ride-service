@@ -1,5 +1,6 @@
 package com.o4.mobility.services;
 
+import com.o4.mobility.common.dtos.BooleanResponse;
 import com.o4.mobility.dtos.Booking;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface BookingService {
      * @return List of Booking
      */
     List<Booking> list();
+
+    BooleanResponse deleteById(Long id);
 }

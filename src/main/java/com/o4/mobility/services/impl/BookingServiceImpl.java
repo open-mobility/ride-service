@@ -1,62 +1,81 @@
 package com.o4.mobility.services.impl;
 
+import com.o4.mobility.common.dtos.BookingStatus;
+import com.o4.mobility.common.dtos.BooleanResponse;
 import com.o4.mobility.common.exceptions.BadInputException;
 import com.o4.mobility.common.exceptions.RecordNotFoundException;
 import com.o4.mobility.common.utils.ValueUtils;
+import com.o4.mobility.dao.BookingRepository;
+import com.o4.mobility.dao.entities.BookingEntity;
 import com.o4.mobility.dtos.Booking;
-import com.o4.mobility.dtos.Coordinates;
 import com.o4.mobility.services.BookingService;
+import com.o4.mobility.services.mappers.BookingMapper;
+import com.o4.mobility.services.validators.BookingValidator;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
-    Map<Long, Booking> bookings = new HashMap<>();
+    private static final BookingStatus DEFAULT_BOOKING_STATUS = BookingStatus.PENDING;
+    private final BookingRepository repository;
 
-    public BookingServiceImpl() {
-        bookings.put(401L, createBooking(3001L, "PL1", "PL2"));
-        bookings.put(402L, createBooking(3002L, "PL1", "PL2"));
-        bookings.put(403L, createBooking(3003L, "PL1", "PL2"));
-    }
-
-    private Booking createBooking(Long customerId, String PickupLat, String PickupLong) {
-        Booking booking = new Booking();
-        booking.setCustomerId(customerId);
-        booking.setPickup(new Coordinates(PickupLat, PickupLong));
-
-        return booking;
+    public BookingServiceImpl(BookingRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Booking save(Booking booking) {
-        return null;
+        BookingValidator.validate(booking);
+
+        BookingEntity entity = BookingMapper.map(booking);
+        entity.setBookingId(null);
+        entity.setStatus(DEFAULT_BOOKING_STATUS);
+        repository.save(entity);
+
+        return BookingMapper.map(entity);
     }
 
     @Override
     public Booking update(Booking booking) {
-        return null;
+        BookingValidator.validateWithId(booking);
+
+        BookingEntity entity = fetchBooking(booking.getBookingId());
+        BookingMapper.overwrite(entity, booking);
+
+        repository.save(entity);
+
+        return BookingMapper.map(entity);
     }
+
 
     @Override
     public Booking findById(Long bookingId) {
-
         if (!ValueUtils.isId(bookingId)) {
             throw new BadInputException("Booking id is missing or not valid positive integer");
         }
 
-        if (!bookings.containsKey(bookingId)) {
-            throw new RecordNotFoundException();
-        }
+        BookingEntity entity = fetchBooking(bookingId);
 
-        return bookings.get(bookingId);
+        return BookingMapper.map(entity);
     }
+
+    private BookingEntity fetchBooking(Long bookingId) {
+        return repository.findById(bookingId)
+                .orElseThrow(RecordNotFoundException::new);
+    }
+
 
     @Override
     public List<Booking> list() {
         return null;
+    }
+
+    @Override
+    public BooleanResponse deleteById(Long id) {
+        repository.deleteById(id);
+
+        return BooleanResponse.success();
     }
 }
