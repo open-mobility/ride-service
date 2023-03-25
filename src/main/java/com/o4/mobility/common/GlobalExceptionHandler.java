@@ -18,7 +18,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = {NoHandlerFoundException.class, HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<ExceptionResponse> handleError404(ServletException exception, HttpServletRequest request) {
