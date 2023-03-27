@@ -6,4 +6,9 @@ Current entities/domain
 * Booking
 * Ride
 
+## Swagger documentation
+JSON http://localhost:8080/v3/api-docs
+HTML http://localhost:8080/swagger-ui/index.html
+
+
 >> This is an open source project for now
