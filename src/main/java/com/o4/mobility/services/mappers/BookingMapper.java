@@ -2,7 +2,12 @@ package com.o4.mobility.services.mappers;
 
 import com.o4.mobility.dao.entities.BookingEntity;
 import com.o4.mobility.dtos.Booking;
+import com.o4.mobility.dtos.BookingRequest;
 import com.o4.mobility.dtos.Coordinates;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BookingMapper {
 
@@ -24,12 +29,10 @@ public class BookingMapper {
         return dest;
     }
 
-    public static BookingEntity map(Booking src) {
+    public static BookingEntity mapRequest(BookingRequest src) {
         BookingEntity dest = new BookingEntity();
         dest.setCustomerId(src.getCustomerId());
-        dest.setDriverId(src.getDriverId());
-        dest.setBookingId(src.getBookingId());
-        dest.setStatus(src.getStatus());
+
         if (null != src.getPickup()) {
             dest.setPickupLat(src.getPickup().getLatitude());
             dest.setPickupLong(src.getPickup().getLongitude());
@@ -42,7 +45,16 @@ public class BookingMapper {
         return dest;
     }
 
-    public static void overwrite(BookingEntity dest, Booking src) {
+    public static BookingEntity map(Booking src) {
+        BookingEntity dest = mapRequest(src);
+        dest.setDriverId(src.getDriverId());
+        dest.setBookingId(src.getBookingId());
+        dest.setStatus(src.getStatus());
+
+        return dest;
+    }
+
+    public static void overwrite(BookingEntity dest, BookingRequest src) {
         dest.setDriverId(src.getDriverId());
 
         if (null != src.getPickup()) {
@@ -55,5 +67,18 @@ public class BookingMapper {
             dest.setDropOffLong(src.getDropOff().getLongitude());
         }
         dest.setStatus(src.getStatus());
+    }
+
+    public static List<Booking> map(List<BookingEntity> entities) {
+        if (null == entities || entities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Booking> bookings = new ArrayList<>();
+        for(BookingEntity entity: entities) {
+            bookings.add(map(entity));
+        }
+
+        return bookings;
     }
 }

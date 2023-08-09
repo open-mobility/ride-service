@@ -2,6 +2,9 @@ package com.o4.mobility.services;
 
 import com.o4.mobility.common.dtos.BooleanResponse;
 import com.o4.mobility.dtos.Booking;
+import com.o4.mobility.dtos.BookingListRequest;
+import com.o4.mobility.dtos.BookingListResponse;
+import com.o4.mobility.dtos.BookingRequest;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ public interface BookingService {
      * @param booking
      * @return booking
      */
-    Booking save(Booking booking);
+    Booking save(BookingRequest booking);
 
     /**
      * Update existing booking
@@ -21,7 +24,7 @@ public interface BookingService {
      * @param booking
      * @return
      */
-    Booking update(Booking booking);
+    Booking update(Long bookingId, BookingRequest booking);
 
 
     /**
@@ -32,12 +35,9 @@ public interface BookingService {
      */
     Booking findById(Long bookingId);
 
-    /**
-     * List all bookings
-     *
-     * @return List of Booking
-     */
-    List<Booking> list();
-
     BooleanResponse deleteById(Long id);
+
+    Booking updateStatus(Long id, String status);
+
+    BookingListResponse list(BookingListRequest request);
 }

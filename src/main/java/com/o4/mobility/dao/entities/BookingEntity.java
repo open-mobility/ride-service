@@ -4,6 +4,7 @@ import com.o4.mobility.common.dtos.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 @Entity(name = "om_bookings")
 @EntityListeners(AuditingEntityListener.class)
 public class BookingEntity {

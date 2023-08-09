@@ -5,6 +5,7 @@ import com.o4.mobility.common.exceptions.ApplicationException;
 import com.o4.mobility.common.exceptions.RecordNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import static com.o4.mobility.common.exceptions.Errors.*;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -29,6 +31,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     protected ResponseEntity<ExceptionResponse> handleAllExceptions(Exception exception) {
+
+       // log.error("Exception occurred: {}", exception.getMessage());
+
         if (exception instanceof ApplicationException appException) {
             return handleApplicationException(appException);
         } else if (exception instanceof HttpMessageNotReadableException notReadableException) {
@@ -42,18 +47,28 @@ public class GlobalExceptionHandler {
         String message;
 
         if (exception.getCause() instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException) {
-            message = "Parsing error, Date format might not be correct";
+           exception.printStackTrace();
+
+            message = getEnumMessage(exception.getMessage());
         } else {
             message = "Parser error, please make sure JSON is properly formatted";
         }
 
         return new ResponseEntity<>(ExceptionResponse.of(UNABLE_TO_MAP_OBJECT,
                 message),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                HttpStatus.BAD_REQUEST);
+    }
+
+    private String getEnumMessage(String message) {
+        if (message.contains("not one of the values accepted for Enum class")) {
+            return "Enum value Parsing error, Please make sure correct type is passed";
+        }
+
+        return "Parsing error, Date/Number/Enum format might not be correct";
     }
 
     protected ResponseEntity<ExceptionResponse> handleApplicationException(ApplicationException exception) {
-        HttpStatus status = HttpStatus.CONFLICT;
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         if (exception instanceof RecordNotFoundException) {
             status = HttpStatus.NOT_FOUND;
         }
