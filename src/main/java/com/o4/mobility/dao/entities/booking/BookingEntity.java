@@ -1,4 +1,4 @@
-package com.o4.mobility.dao.entities;
+package com.o4.mobility.dao.entities.booking;
 
 import com.o4.mobility.common.dtos.BookingStatus;
 import jakarta.persistence.*;
