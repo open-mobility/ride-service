@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationListener;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+
 /**
  * Welcome controller helps in check health status of the application
  *
@@ -24,8 +24,8 @@ import java.util.Date;
  * </p>
  *
  * @author M. Mazhar Hassan
+ * @see HealthStatus
  * @since 1.0
- * @see ApplicationListener
  */
 
 @Hidden

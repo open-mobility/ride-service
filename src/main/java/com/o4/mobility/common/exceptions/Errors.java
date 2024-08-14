@@ -1,5 +1,14 @@
 package com.o4.mobility.common.exceptions;
 
+/**
+ * List of common Error codes
+ *
+ * <p>Application response code</p>
+ *
+ * @author M. Mazhar Hassan
+ * @see ApplicationException
+ * @since 1.0
+ */
 public interface Errors {
     int UNKNOWN_ERROR_OCCURRED = 40001;
     int BAD_INPUT_PARAMETER = 40002;
@@ -11,9 +20,11 @@ public interface Errors {
     int BAD_BOOKING_ID = 40008;
     int BAD_RIDE_ID = 40009;
     int BAD_USER_ID = 40010;
+
     int BAD_PICKUP_LOCATION = 40011;
     int BAD_DROP_OFF_LOCATION = 40012;
-    int BAD_ENUM_VALUE = 40013;
+    int BAD_GPS_LOCATION = 40013;
+    int BAD_ENUM_VALUE = 40014;
 
     int UNABLE_TO_MAP_OBJECT = 40020;
 
@@ -23,4 +34,15 @@ public interface Errors {
 
     int STATE_ERROR_UNKNOWN_STATE = 40071;
     int STATE_ERROR_ILLEGAL_TRANSITION = 40072;
+    int BAD_INTEGER = 40073;
+    int BAD_ID_VALUE = 40074;
+
+    int PAYMENT_METHOD_NOT_SUPPORTED_IN_AREA = 40501;
+    int EMPTY_OR_NULL_COLLECTION = 40502;
+    int MISSING_AREA_CONFIG_FOR_PAYMENT_METHODS = 40503;
+    int MISSING_PAYMENT_METHOD = 40504;
+    int MISSING_SERVICE_TYPE = 40505;
+    int MISSING_AREA_CONFIG_FOR_SERVICE_TYPES = 40506;
+    int SERVICE_TYPE_NOT_SUPPORTED_IN_AREA = 40507;
+
 }
