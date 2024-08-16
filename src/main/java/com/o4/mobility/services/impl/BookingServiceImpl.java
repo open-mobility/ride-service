@@ -8,7 +8,7 @@ import com.o4.mobility.common.exceptions.RecordNotFoundException;
 import com.o4.mobility.common.utils.ValueUtils;
 import com.o4.mobility.dao.BookingRepository;
 import com.o4.mobility.dao.BookingSpecification;
-import com.o4.mobility.dao.entities.BookingEntity;
+import com.o4.mobility.dao.entities.booking.BookingEntity;
 import com.o4.mobility.dtos.*;
 import com.o4.mobility.services.BookingService;
 import com.o4.mobility.services.event.MobilityEventPublisher;
@@ -65,7 +65,7 @@ public class BookingServiceImpl extends BusinessService<BookingEntity> implement
 
     @Override
     public Booking findById(Long bookingId) {
-        if (ValueUtils.isPositiveNumber(bookingId)) {
+        if (!ValueUtils.isPositiveNumber(bookingId)) {
             throw new BadInputException("Booking id is missing or not valid positive integer");
         }
 

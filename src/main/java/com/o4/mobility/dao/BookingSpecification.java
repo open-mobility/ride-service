@@ -2,7 +2,7 @@ package com.o4.mobility.dao;
 
 import com.o4.mobility.common.dtos.BookingStatus;
 import com.o4.mobility.common.utils.ValueUtils;
-import com.o4.mobility.dao.entities.BookingEntity;
+import com.o4.mobility.dao.entities.booking.BookingEntity;
 import com.o4.mobility.dtos.BookingListRequest;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

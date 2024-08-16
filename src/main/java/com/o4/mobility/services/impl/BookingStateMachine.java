@@ -1,6 +1,6 @@
 package com.o4.mobility.services.impl;
 
-import com.o4.mobility.dao.entities.BookingEntity;
+import com.o4.mobility.dao.entities.booking.BookingEntity;
 import com.o4.state.StateEngine;
 import org.springframework.stereotype.Component;
 
