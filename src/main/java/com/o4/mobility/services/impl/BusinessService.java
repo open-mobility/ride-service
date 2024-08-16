@@ -2,16 +2,10 @@ package com.o4.mobility.services.impl;
 
 import com.o4.mobility.common.exceptions.BadInputException;
 import com.o4.mobility.common.utils.ValueUtils;
-import com.o4.mobility.dao.BookingRepository;
-import com.o4.mobility.dao.entities.BookingEntity;
-import com.o4.mobility.dtos.BookingListRequest;
 import com.o4.mobility.dtos.ListRequest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public class BusinessService<T> {
     private static final int DEFAULT_PAGE_NUMBER = 1;

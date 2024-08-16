@@ -2,15 +2,23 @@ package com.o4.mobility.controllers;
 
 
 import com.o4.mobility.common.dtos.BooleanResponse;
-import com.o4.mobility.dtos.Booking;
-import com.o4.mobility.dtos.BookingListRequest;
-import com.o4.mobility.dtos.BookingListResponse;
-import com.o4.mobility.dtos.BookingRequest;
+import com.o4.mobility.dtos.*;
 import com.o4.mobility.services.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+/**
+ * Booking controller helps in creating bookings
+ *
+ * <p>This class provide complete CRUD operations
+ * </p>
+ *
+ * @author M. Mazhar Hassan
+ * @see BookingService
+ * @since 1.0
+ */
 
 @Slf4j
 @RestController
@@ -27,8 +35,10 @@ public class BookingController {
     @GetMapping("/{id}")
     public Booking get(@PathVariable("id") Long id) {
         log.info("Find Booking Id {}", id);
+
         return service.findById(id);
     }
+
 
     @GetMapping
     public BookingListResponse list(BookingListRequest request) {
@@ -37,7 +47,7 @@ public class BookingController {
     }
 
     @Operation(summary = "Creates a new booking")
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public Booking save(@Validated @RequestBody BookingRequest booking) {
         return service.save(booking);
     }
@@ -47,7 +57,6 @@ public class BookingController {
     public Booking update(@PathVariable("id") Long id, @RequestBody @Validated BookingRequest booking) {
         return service.update(id, booking);
     }
-
 
     @Operation(summary = "Update booking status")
     @PatchMapping("/{id}/status")

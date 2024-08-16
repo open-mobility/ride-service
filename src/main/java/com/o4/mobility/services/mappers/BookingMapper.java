@@ -1,13 +1,22 @@
 package com.o4.mobility.services.mappers;
 
-import com.o4.mobility.dao.entities.BookingEntity;
+import com.o4.mobility.dao.entities.booking.BookingEntity;
 import com.o4.mobility.dtos.Booking;
 import com.o4.mobility.dtos.BookingRequest;
-import com.o4.mobility.dtos.Coordinates;
+import com.o4.mobility.common.dtos.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+/**
+ * Mapper class for Booking Entity and Dto
+ *
+ * @author M. Mazhar Hassan
+ * @type Mapper
+ * @see BookingEntity
+ * @see Booking
+ * @since 1.0
+ */
 
 public class BookingMapper {
 

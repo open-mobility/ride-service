@@ -1,13 +1,20 @@
 package com.o4.mobility.services.validators;
 
+import com.o4.mobility.common.dtos.Coordinates;
 import com.o4.mobility.common.exceptions.BadInputException;
 import com.o4.mobility.common.exceptions.Errors;
 import com.o4.mobility.common.utils.ValueUtils;
 import com.o4.mobility.dtos.BookingRequest;
-import com.o4.mobility.dtos.Coordinates;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Validator class for Booking Request
+ *
+ * @author M. Mazhar Hassan
+ * @see BookingRequest
+ * @since 1.0
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BookingValidator {
 

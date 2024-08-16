@@ -2,7 +2,7 @@
 package com.o4.mobility.dao;
 
 import com.o4.mobility.common.dtos.BookingStatus;
-import com.o4.mobility.dao.entities.BookingEntity;
+import com.o4.mobility.dao.entities.booking.BookingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
