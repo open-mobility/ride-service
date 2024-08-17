@@ -18,7 +18,7 @@ public interface RandomLongGenerator {
      *
      * @return A random long number.
      */
-    static long generateRandomLong() {
+    static long getLong() {
         return RANDOM.nextLong();
     }
 
@@ -29,7 +29,7 @@ public interface RandomLongGenerator {
      * @param max The maximum value (inclusive).
      * @return A random long number within the specified range.
      */
-    static long generateRandomLongInRange(long min, long max) {
+    static long getLong(long min, long max) {
         if (min > max) {
             throw new IllegalArgumentException("Min must be less than or equal to max");
         }

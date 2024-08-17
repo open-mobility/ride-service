@@ -2,6 +2,7 @@ package com.o4.mobility.services.impl;
 
 import com.o4.mobility.common.dtos.BookingStatus;
 import com.o4.mobility.common.dtos.BooleanResponse;
+import com.o4.mobility.common.dtos.events.EventType;
 import com.o4.mobility.common.exceptions.BadInputException;
 import com.o4.mobility.common.exceptions.Errors;
 import com.o4.mobility.common.exceptions.RecordNotFoundException;
@@ -45,9 +46,10 @@ public class BookingServiceImpl extends BusinessService<BookingEntity> implement
         entity.setStatus(DEFAULT_BOOKING_STATUS);
         repository.save(entity);
 
-        publisher.publishCustomEvent("||| A new booking created: "+ entity.getBookingId() +" ||||");
+        Booking dto = BookingMapper.map(entity);
+        publisher.publishCustomEvent(EventType.BOOKING_CREATED, dto);
 
-        return BookingMapper.map(entity);
+        return dto;
     }
 
     @Override

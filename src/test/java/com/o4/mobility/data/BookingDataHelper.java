@@ -46,7 +46,7 @@ public interface BookingDataHelper {
         return createPredefinedRequest(
                 CoordinatesGenerator.generateRandomCoordinates(),
                 CoordinatesGenerator.generateRandomCoordinates(),
-                RandomLongGenerator.generateRandomLong());
+                RandomLongGenerator.getLong(300,3000));
     }
 
     static Coordinates createCoordinates(String latitude, String longitude) {

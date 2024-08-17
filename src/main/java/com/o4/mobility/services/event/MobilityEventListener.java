@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class MobilityEventListener implements ApplicationListener<MobilityEvent> {
     @Override
     public void onApplicationEvent(MobilityEvent event) {
-      log.info("Received event: {}", event.getMessage()) ;
+      log.info("Received event: {} with data {}", event.getType(), event.getData()) ;
     }
 }

@@ -1,5 +1,6 @@
 package com.o4.mobility.actions;
 
+import com.o4.mobility.common.dtos.ExceptionResponse;
 import com.o4.mobility.common.utils.JsonUtils;
 import com.o4.mobility.data.BookingDataHelper;
 import com.o4.mobility.dtos.Booking;
@@ -39,6 +40,18 @@ public interface BookingActions {
         return booking;
     }
 
+    static ExceptionResponse createWithError(MockMvc mockMvc, BookingRequest validRequest, int expectedStatusCode) throws Exception {
+
+        String response = mockMvc.perform(post("/api/v1/bookings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.toJson(validRequest))
+                )
+                .andDo(print()).andExpect(status().is(expectedStatusCode))
+                .andReturn().getResponse().getContentAsString();
+
+        return JsonUtils.toObject(response, ExceptionResponse.class);
+    }
+
     static Booking findById(MockMvc mockMvc, Long bookingId) throws Exception {
         String response = mockMvc.perform(get("/api/v1/bookings/" + bookingId))
                 .andDo(print())
@@ -49,6 +62,15 @@ public interface BookingActions {
         assertEquals(bookingId, booking.getBookingId());
 
         return booking;
+    }
+
+    static ExceptionResponse findByWithError(MockMvc mockMvc, Long bookingId) throws Exception {
+        String response = mockMvc.perform(get("/api/v1/bookings/" + bookingId))
+                .andDo(print())
+                .andExpect(status().is(404))
+                .andReturn().getResponse().getContentAsString();
+
+         return JsonUtils.toObject(response, ExceptionResponse.class);
     }
 
     static Booking createRandomBooking(MockMvc mockMvc) throws Exception {

@@ -1,5 +1,6 @@
 package com.o4.mobility.services.event;
 
+import com.o4.mobility.common.dtos.events.EventType;
 import com.o4.mobility.common.dtos.events.MobilityEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,9 +15,9 @@ public class MobilityEventPublisher {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    public void publishCustomEvent(final String message) {
-        log.info("Publishing custom event. {}", message);
-        MobilityEvent event = new MobilityEvent(this, message);
+    public void publishCustomEvent(EventType type, final Object data) {
+        log.info("Publishing custom event {} with data {}", type, data);
+        MobilityEvent event = new MobilityEvent(this, type, data);
 
         applicationEventPublisher.publishEvent(event);
     }

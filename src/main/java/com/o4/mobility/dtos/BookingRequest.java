@@ -14,10 +14,10 @@ public class BookingRequest {
     private Long driverId;
     private String geoHash;
     private BookingStatus status;
-    @NotNull
+
     private Coordinates pickup;
-    @NotNull
     private Coordinates dropOff;
+
     private Integer paymentMethod;
     private Integer serviceType;
 }
